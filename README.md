@@ -119,11 +119,6 @@ Pthreads is an explicit, low-level C API providing deterministic control over in
   gcc thread1.c -o thread1 -pthread
   ./thread1
   ```
-* **Observed Terminal Output:**
-  ```text
-  Hello from the thread!
-  Main thread finished.
-  ```
 
 ![Single Thread Execution](./images/01_pthread_single_thread.jpeg)
 
@@ -137,14 +132,6 @@ Pthreads is an explicit, low-level C API providing deterministic control over in
   ```bash
   gcc thread2.c -o thread2 -pthread
   ./thread2
-  ```
-* **Observed Terminal Output:**
-  ```text
-  Hello from Thread 1
-  Hello from Thread 3
-  Hello from Thread 2
-  Hello from Thread 4
-  All threads have finished.
   ```
 * **Concurrency Insight:** The order of printed messages (`1 -> 3 -> 2 -> 4`) is non-deterministic because thread scheduling is dynamically arbitrated by the operating system kernel.
 
@@ -161,14 +148,7 @@ Pthreads is an explicit, low-level C API providing deterministic control over in
   gcc thread_sum.c -o thread_sum -pthread
   ./thread_sum
   ```
-* **Observed Terminal Output:**
-  ```text
-  Thread 1 calculated sum = 30
-  Thread 2 calculated sum = 70
-  Thread 4 calculated sum = 150
-  Thread 3 calculated sum = 110
-  Total sum = 360
-  ```
+
 * **Mathematical Invariant Check:**
   $$\text{Total} = 30 + 70 + 110 + 150 = 360$$
 
@@ -185,11 +165,7 @@ Pthreads is an explicit, low-level C API providing deterministic control over in
   gcc race.c -o race -pthread
   ./race
   ```
-* **Observed Terminal Output:**
-  ```text
-  Expected counter = 400000
-  Actual counter = 137590
-  ```
+
 * **Root Cause Analysis:**
   The C statement `counter++` is not atomic. At the assembly level, it requires three separate instructions:
   1. `MOV EAX, [counter]` (Fetch from RAM to CPU register)
@@ -210,11 +186,6 @@ Pthreads is an explicit, low-level C API providing deterministic control over in
   ```bash
   gcc mutex.c -o mutex -pthread
   ./mutex
-  ```
-* **Observed Terminal Output:**
-  ```text
-  Expected counter = 400000
-  Actual counter = 400000
   ```
 * **Protection Mechanism:**
   ```c
@@ -243,15 +214,6 @@ OpenMP is a high-level, directive-driven standard that manages thread pooling, l
   gcc omp1.c -o omp1 -fopenmp
   ./omp1
   ```
-* **Observed Terminal Output:**
-  Demonstrates that all **32 hardware threads** available on the CPU are dynamically detected and spawned into the team:
-  ```text
-  Hello from Thread 1 of 32
-  Hello from Thread 11 of 32
-  Hello from Thread 27 of 32
-  ...
-  Hello from Thread 28 of 32
-  ```
 
 ![OpenMP Parallel Hello 32 Threads](./images/06_omp_parallel_hello_32threads.jpeg)
 
@@ -266,18 +228,7 @@ OpenMP is a high-level, directive-driven standard that manages thread pooling, l
   gcc omp_sum.c -o omp_sum -fopenmp
   ./omp_sum
   ```
-* **Observed Terminal Output:**
-  ```text
-  Thread 1 processing array[1] = 20
-  Thread 7 processing array[7] = 80
-  Thread 5 processing array[5] = 60
-  Thread 3 processing array[3] = 40
-  Thread 2 processing array[2] = 30
-  Thread 6 processing array[6] = 70
-  Thread 4 processing array[4] = 50
-  Thread 0 processing array[0] = 10
-  Total sum = 360
-  ```
+
 * **Mechanism:** OpenMP maintains private accumulator registers for each thread and combines partial sums into `total_sum` upon loop completion.
 
 ![OpenMP Sum Reduction](./images/07_omp_sum_reduction.jpeg)
@@ -293,11 +244,7 @@ OpenMP is a high-level, directive-driven standard that manages thread pooling, l
   gcc omp_race.c -o omp_race -fopenmp
   ./omp_race
   ```
-* **Observed Terminal Output:**
-  ```text
-  Expected counter = 400000
-  Actual counter   = 100175
-  ```
+
 * **Outcome:** Without explicit locking, **299,825 updates were dropped** out of 400,000 ($74.96\%$ data corruption).
 
 ![OpenMP Race Condition](./images/08_omp_race_condition.jpeg)
@@ -313,11 +260,7 @@ OpenMP is a high-level, directive-driven standard that manages thread pooling, l
   gcc omp_critical.c -o omp_critical -fopenmp
   ./omp_critical
   ```
-* **Observed Terminal Output:**
-  ```text
-  Expected counter = 400000
-  Actual counter = 400000
-  ```
+
 * **Outcome:** Exactly 400,000 is produced with full correctness.
 
 ![OpenMP Critical Section](./images/09_omp_critical_section.jpeg)
@@ -332,17 +275,6 @@ OpenMP is a high-level, directive-driven standard that manages thread pooling, l
   ```bash
   gcc omp_barrier.c -o omp_barrier -fopenmp
   ./omp_barrier
-  ```
-* **Observed Terminal Output:**
-  ```text
-  Thread 3 completed Stage 1
-  Thread 0 completed Stage 1
-  Thread 2 completed Stage 1
-  Thread 1 completed Stage 1
-  Thread 0 started Stage 2
-  Thread 2 started Stage 2
-  Thread 1 started Stage 2
-  Thread 3 started Stage 2
   ```
 * **Observation:** Notice the complete temporal separation: every single thread finishes Stage 1 before any thread is allowed to start Stage 2.
 
@@ -366,11 +298,7 @@ $$\text{Mathematical Invariant: } \sum_{i=0}^{N-1} (i \times 10^{-6}) = \mathbf{
   gcc sequential.c -o sequential_program
   ./sequential_program
   ```
-* **Observed Terminal Output:**
-  ```text
-  Result = 499999999500.00
-  Execution time = 1.418018 seconds
-  ```
+
 * **Baseline Reference Runtime ($T_{\text{seq}}$):** **`1.418018 seconds`**
 
 ![Sequential Baseline Execution](./images/11_sequential_baseline.jpeg)
@@ -385,12 +313,6 @@ $$\text{Mathematical Invariant: } \sum_{i=0}^{N-1} (i \times 10^{-6}) = \mathbf{
   gcc pthread_perf.c -o pthread_perf -pthread
   ./pthread_perf
   ```
-* **Observed Execution Times:**
-  - **1 Thread:** `1.405171 seconds`
-  - **2 Threads:** `0.718377 seconds`
-  - **4 Threads:** `0.358913 seconds`
-  - **6 Threads:** `0.240157 seconds`
-  - **16 Threads:** `0.136414 seconds`
 
 ![Pthreads Performance Benchmarks](./images/12_pthread_perf_all_threads.jpeg)
 
@@ -404,12 +326,6 @@ $$\text{Mathematical Invariant: } \sum_{i=0}^{N-1} (i \times 10^{-6}) = \mathbf{
   gcc omp_perf.c -o omp_perf -fopenmp
   ./omp_perf
   ```
-* **Observed Execution Times:**
-  - **1 Thread:** `1.393317 seconds`
-  - **2 Threads:** `0.717785 seconds`
-  - **4 Threads:** `0.359875 seconds`
-  - **6 Threads:** `0.240754 seconds`
-  - **16 Threads:** `0.136195 seconds`
 
 ![OpenMP Performance Benchmarks](./images/13_omp_perf_all_threads.jpeg)
 
@@ -427,14 +343,6 @@ $$\text{Mathematical Invariant: } \sum_{i=0}^{N-1} (i \times 10^{-6}) = \mathbf{
 
 ![Execution Time vs Number of Threads](./images/execution_time_vs_threads.png)
 
-```mermaid
-xychart-beta
-    title "Execution Time vs Thread Count (Lower is Better)"
-    x-axis ["1 Thread", "2 Threads", "4 Threads", "6 Threads", "16 Threads"]
-    y-axis "Time (seconds)" 0 --> 1.6
-    line [1.405, 0.718, 0.359, 0.240, 0.136]
-```
-
 ---
 
 ### Step 16: Speedup Calculation & Scaling Analysis
@@ -450,14 +358,6 @@ $$\text{Speedup } (S) = \frac{T_{\text{sequential}}}{T_{\text{parallel}}}$$
 | **16 Threads** | **10.395×** | **10.412×** | Peak parallel throughput (>10× speedup) |
 
 ![Speedup vs Number of Threads](./images/speedup_vs_threads.png)
-
-```mermaid
-xychart-beta
-    title "Speedup vs Thread Count (Higher is Better)"
-    x-axis ["1 Thread", "2 Threads", "4 Threads", "6 Threads", "16 Threads"]
-    y-axis "Speedup Factor" 0 --> 12
-    line [1.009, 1.974, 3.951, 5.905, 10.395]
-```
 
 ---
 
