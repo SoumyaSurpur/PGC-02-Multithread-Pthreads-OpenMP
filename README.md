@@ -39,8 +39,6 @@
 - [7. Comprehensive Comparison: Pthreads vs. OpenMP](#7-comprehensive-comparison-pthreads-vs-openmp)
 - [8. Terminology Glossary](#8-terminology-glossary)
 - [9. Repository File Structure](#9-repository-file-structure)
-- [10. Complete Terminal Execution Sessions](#10-complete-terminal-execution-sessions)
-- [11. Quick Start & Compilation Cheat Sheet](#11-quick-start--compilation-cheat-sheet)
 
 ---
 
