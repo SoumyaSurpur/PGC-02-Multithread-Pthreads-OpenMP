@@ -466,28 +466,3 @@ PGC-02-Multithread-Pthreads-OpenMP/
     ├── speedup_vs_threads.png                                # High-res Speedup graph
     └── efficiency_vs_threads.png                             # High-res Efficiency graph
 ```
-
----
-
-## 10. Quick Start & Compilation Cheat Sheet
-
-```bash
-# ==================== Part A: Pthreads ====================
-gcc thread1.c -o thread1 -pthread && ./thread1
-gcc thread2.c -o thread2 -pthread && ./thread2
-gcc thread_sum.c -o thread_sum -pthread && ./thread_sum
-gcc race.c -o race -pthread && ./race
-gcc mutex.c -o mutex -pthread && ./mutex
-
-# ==================== Part B: OpenMP ======================
-gcc omp1.c -o omp1 -fopenmp && ./omp1
-gcc omp_sum.c -o omp_sum -fopenmp && ./omp_sum
-gcc omp_race.c -o omp_race -fopenmp && ./omp_race
-gcc omp_critical.c -o omp_critical -fopenmp && ./omp_critical
-gcc omp_barrier.c -o omp_barrier -fopenmp && ./omp_barrier
-
-# ==================== Part C: Benchmarks ===================
-gcc sequential.c -o sequential_program && ./sequential_program
-gcc pthread_perf.c -o pthread_perf -pthread && ./pthread_perf
-gcc omp_perf.c -o omp_perf -fopenmp && ./omp_perf
-```
