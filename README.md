@@ -469,20 +469,7 @@ PGC-02-Multithread-Pthreads-OpenMP/
 
 ---
 
-## 10. Complete Terminal Execution Sessions
-
-For full academic reproducibility, the four complete uncropped terminal execution sessions captured during laboratory verification are cataloged below:
-
-| Session | Covered Experiments | Terminal Capture |
-| :---: | :--- | :--- |
-| **Session 1** | WSL setup, environment validation, `thread1.c`, `thread2.c` | [View Session 1](./images/terminal_session_01_wsl_setup_thread1_thread2.jpeg) |
-| **Session 2** | `thread_sum.c`, `race.c`, `mutex.c`, `omp1.c` (32 threads) | [View Session 2](./images/terminal_session_02_pthreads_work_race_mutex_omp1.jpeg) |
-| **Session 3** | `omp_sum.c`, `omp_race.c`, `omp_critical.c`, `omp_barrier.c` | [View Session 3](./images/terminal_session_03_omp_reduction_race_critical_barrier.jpeg) |
-| **Session 4** | `sequential.c`, `pthread_perf.c` (1-16T), `omp_perf.c` (1-16T) | [View Session 4](./images/terminal_session_04_sequential_pthreads_omp_performance.jpeg) |
-
----
-
-## 11. Quick Start & Compilation Cheat Sheet
+## 10. Quick Start & Compilation Cheat Sheet
 
 ```bash
 # ==================== Part A: Pthreads ====================
