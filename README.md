@@ -464,11 +464,7 @@ PGC-02-Multithread-Pthreads-OpenMP/
     ├── 13_omp_perf_all_threads.jpeg                          # Step 14 terminal benchmark output
     ├── execution_time_vs_threads.png                         # High-res Execution Time graph
     ├── speedup_vs_threads.png                                # High-res Speedup graph
-    ├── efficiency_vs_threads.png                             # High-res Efficiency graph
-    ├── terminal_session_01_wsl_setup_thread1_thread2.jpeg    # Full session 1 screenshot
-    ├── terminal_session_02_pthreads_work_race_mutex_omp1.jpeg# Full session 2 screenshot
-    ├── terminal_session_03_omp_reduction_race_critical_barrier.jpeg # Full session 3 screenshot
-    └── terminal_session_04_sequential_pthreads_omp_performance.jpeg # Full session 4 screenshot
+    └── efficiency_vs_threads.png                             # High-res Efficiency graph
 ```
 
 ---
