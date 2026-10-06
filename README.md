@@ -427,7 +427,6 @@ While theoretical linear scaling would suggest $1.418\text{ s} / 16 \approx 0.08
 PGC-02-Multithread-Pthreads-OpenMP/
 ├── README.md                                                 # Laboratory technical report
 ├── .gitignore                                                # Git ignore file for binaries
-├── Multithreaded_Pthreads_OpenMP_Experiment_Final.docx       # Lab experiment manual reference
 │
 ├── thread1.c                                                 # Step 1: Single thread creation and joining
 ├── thread2.c                                                 # Step 2: Spawning multiple threads (4 threads)
